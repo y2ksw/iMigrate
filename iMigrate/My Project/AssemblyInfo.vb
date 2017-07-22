@@ -10,9 +10,9 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyTitle("iMigrate")>
 <Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
+<Assembly: AssemblyCompany("Johannes Schidlowski")>
 <Assembly: AssemblyProduct("iMigrate")>
-<Assembly: AssemblyCopyright("Copyright ©  2017")>
+<Assembly: AssemblyCopyright("Copyright © Johannes Schidlowski 2017")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
