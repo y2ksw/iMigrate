@@ -10,7 +10,7 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyTitle("iMigrate")>
 <Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("Johannes Schidlowski")>
+<Assembly: AssemblyCompany("Trimelli Editori")>
 <Assembly: AssemblyProduct("iMigrate")>
 <Assembly: AssemblyCopyright("Copyright © Johannes Schidlowski 2017")>
 <Assembly: AssemblyTrademark("")>
@@ -32,4 +32,4 @@ Imports System.Runtime.InteropServices
 ' <Assembly: AssemblyVersion("1.0.*")>
 
 <Assembly: AssemblyVersion("1.0.0.0")>
-<Assembly: AssemblyFileVersion("1.0.0.0")>
+<Assembly: AssemblyFileVersion("1.1.0.0")>

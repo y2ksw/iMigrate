@@ -51,6 +51,9 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>appicon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="INIFileParser, Version=2.5.0.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
       <HintPath>..\packages\ini-parser.2.5.0\lib\net20\INIFileParser.dll</HintPath>
@@ -86,6 +89,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contacts.Designer.vb">
+      <DependentUpon>Contacts.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Contacts.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="INIFile.vb" />
     <Compile Include="MDIForm.Designer.vb">
       <DependentUpon>MDIForm.vb</DependentUpon>
@@ -111,6 +120,9 @@
     <Compile Include="UsefulFunctions.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Contacts.resx">
+      <DependentUpon>Contacts.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MDIForm.resx">
       <DependentUpon>MDIForm.vb</DependentUpon>
     </EmbeddedResource>
@@ -133,6 +145,9 @@
     </None>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="appicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

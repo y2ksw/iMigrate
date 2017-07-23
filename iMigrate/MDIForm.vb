@@ -45,8 +45,7 @@
                 a = Replace(a, "\", "_")
                 .FileName = a
             End If
-            .ShowDialog()
-            If .FileName.Length = 0 Then
+            If .ShowDialog() <> DialogResult.OK Then
                 Exit Sub
             End If
             zipfilename = .FileName
@@ -138,11 +137,17 @@
             .DefaultExt = "zip"
             .FileName = $"*-firefox-{username}-*.zip"
             .Multiselect = True
-            .ShowDialog()
-            If .FileNames.Count <> 2 Then
-                MsgBox("E' necessario selezionare i file di backup 'local*' e 'roaming*' per ripristinare la configurazione di Mozilla Firefox!", MsgBoxStyle.Exclamation, "AVVISO")
+            If .ShowDialog() <> DialogResult.OK Then
                 Exit Sub
             End If
+            Select Case .FileNames.Count
+                Case 0
+                    Exit Sub
+                Case 2
+                Case Else
+                    MsgBox("E' necessario selezionare i file di backup 'local*' e 'roaming*' per ripristinare la configurazione di Mozilla Firefox!", MsgBoxStyle.Exclamation, "AVVISO")
+                    Exit Sub
+            End Select
             zipfilenames = .FileNames
         End With
 
@@ -232,7 +237,9 @@
                 a = Replace(a, "\", "_")
                 .FileName = a
             End If
-            .ShowDialog()
+            If .ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
             If .FileName.Length = 0 Then
                 Exit Sub
             End If
@@ -325,11 +332,17 @@
             .DefaultExt = "zip"
             .FileName = $"*-thunderbird-{username}-*.zip"
             .Multiselect = True
-            .ShowDialog()
-            If .FileNames.Count <> 2 Then
-                MsgBox("E' necessario selezionare i file di backup 'local*' e 'roaming*' per ripristinare la configurazione di Mozilla Thunderbird!", MsgBoxStyle.Exclamation, "AVVISO")
+            If .ShowDialog() <> DialogResult.OK Then
                 Exit Sub
             End If
+            Select Case .FileNames.Count
+                Case 0
+                    Exit Sub
+                Case 2
+                Case Else
+                    MsgBox("E' necessario selezionare i file di backup 'local*' e 'roaming*' per ripristinare la configurazione di Mozilla Thunderbird!", MsgBoxStyle.Exclamation, "AVVISO")
+                    Exit Sub
+            End Select
             zipfilenames = .FileNames
         End With
 
@@ -380,4 +393,15 @@
 
     End Sub
 
+    Private Sub ContattiToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ContattiToolStripMenuItem.Click
+
+        Contacts.ShowDialog()
+
+    End Sub
+
+    Private Sub EsciToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EsciToolStripMenuItem.Click
+
+        Application.Exit()
+
+    End Sub
 End Class

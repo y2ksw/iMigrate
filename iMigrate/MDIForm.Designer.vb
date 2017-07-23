@@ -22,6 +22,7 @@ Partial Class MDIForm
     'Non modificarla mediante l'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MDIForm))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EsciToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -33,6 +34,7 @@ Partial Class MDIForm
         Me.ThunderbirdToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackupToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.RestoreToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ContattiToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.MenuStrip1.SuspendLayout()
@@ -40,7 +42,7 @@ Partial Class MDIForm
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.UtilitàToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.UtilitàToolStripMenuItem, Me.ContattiToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(1118, 24)
@@ -71,7 +73,7 @@ Partial Class MDIForm
         '
         Me.MozillaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FirefoxToolStripMenuItem, Me.ThunderbirdToolStripMenuItem})
         Me.MozillaToolStripMenuItem.Name = "MozillaToolStripMenuItem"
-        Me.MozillaToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.MozillaToolStripMenuItem.Size = New System.Drawing.Size(112, 22)
         Me.MozillaToolStripMenuItem.Text = "&Mozilla"
         '
         'FirefoxToolStripMenuItem
@@ -97,20 +99,26 @@ Partial Class MDIForm
         '
         Me.ThunderbirdToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BackupToolStripMenuItem1, Me.RestoreToolStripMenuItem1})
         Me.ThunderbirdToolStripMenuItem.Name = "ThunderbirdToolStripMenuItem"
-        Me.ThunderbirdToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ThunderbirdToolStripMenuItem.Size = New System.Drawing.Size(140, 22)
         Me.ThunderbirdToolStripMenuItem.Text = "&Thunderbird"
         '
         'BackupToolStripMenuItem1
         '
         Me.BackupToolStripMenuItem1.Name = "BackupToolStripMenuItem1"
-        Me.BackupToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
+        Me.BackupToolStripMenuItem1.Size = New System.Drawing.Size(125, 22)
         Me.BackupToolStripMenuItem1.Text = "&Backup ..."
         '
         'RestoreToolStripMenuItem1
         '
         Me.RestoreToolStripMenuItem1.Name = "RestoreToolStripMenuItem1"
-        Me.RestoreToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
+        Me.RestoreToolStripMenuItem1.Size = New System.Drawing.Size(125, 22)
         Me.RestoreToolStripMenuItem1.Text = "&Restore ..."
+        '
+        'ContattiToolStripMenuItem
+        '
+        Me.ContattiToolStripMenuItem.Name = "ContattiToolStripMenuItem"
+        Me.ContattiToolStripMenuItem.Size = New System.Drawing.Size(62, 20)
+        Me.ContattiToolStripMenuItem.Text = "Contatti"
         '
         'OpenFileDialog1
         '
@@ -122,6 +130,7 @@ Partial Class MDIForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1118, 547)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.IsMdiContainer = True
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "MDIForm"
@@ -146,4 +155,5 @@ Partial Class MDIForm
     Friend WithEvents RestoreToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents SaveFileDialog1 As SaveFileDialog
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
+    Friend WithEvents ContattiToolStripMenuItem As ToolStripMenuItem
 End Class
