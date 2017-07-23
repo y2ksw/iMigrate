@@ -78,7 +78,7 @@ Partial Class MDIForm
         '
         Me.FirefoxToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BackupToolStripMenuItem, Me.RestoreToolStripMenuItem})
         Me.FirefoxToolStripMenuItem.Name = "FirefoxToolStripMenuItem"
-        Me.FirefoxToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.FirefoxToolStripMenuItem.Size = New System.Drawing.Size(140, 22)
         Me.FirefoxToolStripMenuItem.Text = "&Firefox"
         '
         'BackupToolStripMenuItem
@@ -90,7 +90,7 @@ Partial Class MDIForm
         'RestoreToolStripMenuItem
         '
         Me.RestoreToolStripMenuItem.Name = "RestoreToolStripMenuItem"
-        Me.RestoreToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.RestoreToolStripMenuItem.Size = New System.Drawing.Size(125, 22)
         Me.RestoreToolStripMenuItem.Text = "&Restore ..."
         '
         'ThunderbirdToolStripMenuItem
@@ -99,7 +99,6 @@ Partial Class MDIForm
         Me.ThunderbirdToolStripMenuItem.Name = "ThunderbirdToolStripMenuItem"
         Me.ThunderbirdToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ThunderbirdToolStripMenuItem.Text = "&Thunderbird"
-        Me.ThunderbirdToolStripMenuItem.Visible = False
         '
         'BackupToolStripMenuItem1
         '
@@ -126,7 +125,7 @@ Partial Class MDIForm
         Me.IsMdiContainer = True
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "MDIForm"
-        Me.Text = "Form1"
+        Me.Text = "MDIForm"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
