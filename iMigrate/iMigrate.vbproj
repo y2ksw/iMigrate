@@ -118,6 +118,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="UsefulFunctions.vb" />
+    <Compile Include="webupdate.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Contacts.resx">

@@ -6,6 +6,12 @@
 
     End Sub
 
+    Private Sub MDIForm_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+
+        Timer1.Enabled = True
+
+    End Sub
+
     ''' <summary>
     ''' Mozilla Firefox Backup.
     ''' </summary>
@@ -40,11 +46,9 @@
             .AddExtension = True
             .OverwritePrompt = True
             .DefaultExt = "zip"
-            If .FileName.Length = 0 Then
-                a = $"firefox-{username}-{Now.ToString("yyyy-MM-dd-HH-mm-ss")}.zip"
-                a = Replace(a, "\", "_")
-                .FileName = a
-            End If
+            a = $"firefox-{username}-{Now.ToString("yyyy-MM-dd-HH-mm-ss")}.zip"
+            a = Replace(a, "\", "_")
+            .FileName = a
             If .ShowDialog() <> DialogResult.OK Then
                 Exit Sub
             End If
@@ -232,11 +236,9 @@
             .AddExtension = True
             .OverwritePrompt = True
             .DefaultExt = "zip"
-            If .FileName.Length = 0 Then
-                a = $"thunderbird-{username}-{Now.ToString("yyyy-MM-dd-HH-mm-ss")}.zip"
-                a = Replace(a, "\", "_")
-                .FileName = a
-            End If
+            a = $"thunderbird-{username}-{Now.ToString("yyyy-MM-dd-HH-mm-ss")}.zip"
+            a = Replace(a, "\", "_")
+            .FileName = a
             If .ShowDialog() <> DialogResult.OK Then
                 Exit Sub
             End If
@@ -401,7 +403,38 @@
 
     Private Sub EsciToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EsciToolStripMenuItem.Click
 
-        Application.Exit()
+        Environment.Exit(0)
 
     End Sub
+
+    Private Sub AggiornaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AggiornaToolStripMenuItem.Click
+
+        Dim wu As WebUpdate = New WebUpdate()
+
+        If Not wu.HaveInternetConnection() Then
+            MsgBox("Non è disponibile Internet!", MsgBoxStyle.Exclamation, "AVVISO")
+            Exit Sub
+        End If
+
+        If Not wu.IsUpdateAvailable Then
+            MsgBox("Non è disponibile alcun aggiornamento.", MsgBoxStyle.Information, "AGGIORNAMENTO")
+            Exit Sub
+        End If
+
+        wu.UpdateProgramAndExitIfNewer()
+
+    End Sub
+
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+
+        Dim wu As WebUpdate = New WebUpdate()
+
+        Timer1.Enabled = False
+
+        If wu.HaveInternetConnection() Then
+            wu.UpdateProgramAndExitIfNewer()
+        End If
+
+    End Sub
+
 End Class
