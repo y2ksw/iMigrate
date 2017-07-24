@@ -149,7 +149,7 @@
                     Exit Sub
                 Case 2
                 Case Else
-                    MsgBox("E' necessario selezionare i file di backup 'local*' e 'roaming*' per ripristinare la configurazione di Mozilla Firefox!", MsgBoxStyle.Exclamation, "AVVISO")
+                    MsgBox("E' necessario selezionare entrambi i file di backup 'local-firefox-*' e 'roaming-firefox-*' per ripristinare la configurazione di Mozilla Firefox!", MsgBoxStyle.Exclamation, "AVVISO")
                     Exit Sub
             End Select
             zipfilenames = .FileNames
@@ -342,7 +342,7 @@
                     Exit Sub
                 Case 2
                 Case Else
-                    MsgBox("E' necessario selezionare i file di backup 'local*' e 'roaming*' per ripristinare la configurazione di Mozilla Thunderbird!", MsgBoxStyle.Exclamation, "AVVISO")
+                    MsgBox("E' necessario selezionare entrambi i file di backup 'local-thunderbird-*' e 'roaming-thunderbird-*' per ripristinare la configurazione di Mozilla Thunderbird!", MsgBoxStyle.Exclamation, "AVVISO")
                     Exit Sub
             End Select
             zipfilenames = .FileNames
@@ -437,4 +437,132 @@
 
     End Sub
 
+    ''' <summary>
+    ''' FileZilla FTP Client Backup.
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub BackupToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles BackupToolStripMenuItem3.Click
+
+        Dim a As String
+        Dim zipfilename As String
+        Dim p As String = Path.GetFullPath($"{Application.LocalUserAppDataPath}\..\..\..\..")
+        Dim username = Split(p, "\")(2)
+        Dim inifilename As String = $"{p}\Roaming\FileZilla\filezilla.xml"
+        Dim roamingpath As String = $"{p}\Roaming\FileZilla"
+        Dim tmpfilename As String
+
+        If Not File.Exists(inifilename) Then
+            MsgBox("Non è stato trovato un profilo FileZilla FTP Client valido!", MsgBoxStyle.Critical, "ERRORE")
+            Exit Sub
+        End If
+
+        If UsefulFunctions.ProcessExists("filezilla") Then
+            MsgBox("E' attualmente attivo FileZilla FTP Client! Chiudere l'applicazione e riprovare.", MsgBoxStyle.Exclamation, "AVVISO")
+            Exit Sub
+        End If
+
+        With SaveFileDialog1
+            .AddExtension = True
+            .OverwritePrompt = True
+            .DefaultExt = "zip"
+            a = $"filezilla-client-{username}-{Now.ToString("yyyy-MM-dd-HH-mm-ss")}.zip"
+            a = Replace(a, "\", "_")
+            .FileName = a
+            If .ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
+            zipfilename = .FileName
+        End With
+
+        Cursor = Cursors.WaitCursor
+        tmpfilename = Path.GetTempFileName
+        UsefulFunctions.FileDelete(tmpfilename)
+        Try
+            ZipFile.CreateFromDirectory(roamingpath, tmpfilename)
+        Catch ex As Exception
+            UsefulFunctions.FileDelete(tmpfilename)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "ERRORE")
+            Exit Sub
+        Finally
+            Cursor = Cursors.Default
+        End Try
+
+        Cursor = Cursors.WaitCursor
+        Try
+            File.Move(tmpfilename, zipfilename)
+        Catch ex As Exception
+            UsefulFunctions.FileDelete(tmpfilename)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "ERRORE")
+            Exit Sub
+        Finally
+            Cursor = Cursors.Default
+        End Try
+
+        MsgBox($"Il backup è stato creato nella cartella '{Path.GetDirectoryName(zipfilename)}'!", MsgBoxStyle.Information, "FILEZILLA FTP CLIENT BACKUP")
+
+        Shell("explorer " & """" & Path.GetDirectoryName(zipfilename) & """", AppWinStyle.NormalFocus)
+
+    End Sub
+
+    ''' <summary>
+    ''' FileZilla FTP Client Restore.
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub RestoreToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles RestoreToolStripMenuItem3.Click
+
+        Dim zipfilename As String
+        Dim p As String = Path.GetFullPath($"{Application.LocalUserAppDataPath}\..\..\..\..")
+        Dim username = Split(p, "\")(2)
+        Dim inifilename As String = $"{p}\Roaming\FileZilla\filezilla.xml"
+        Dim roamingpath As String = $"{p}\Roaming\FileZilla"
+
+        If Not File.Exists(inifilename) Then
+            MsgBox("Non è stato trovato un profilo FileZilla FTP Client valido!", MsgBoxStyle.Critical, "ERRORE")
+            Exit Sub
+        End If
+
+        If UsefulFunctions.ProcessExists("filezilla") Then
+            MsgBox("E' attualmente attivo FileZilla FTP Client! Chiudere l'applicazione e riprovare.", MsgBoxStyle.Exclamation, "AVVISO")
+            Exit Sub
+        End If
+
+        With OpenFileDialog1
+            .AddExtension = True
+            .CheckFileExists = True
+            .DefaultExt = "zip"
+            .FileName = $"filezilla-client-{username}-*.zip"
+            .Multiselect = True
+            If .ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
+            Select Case .FileNames.Count
+                Case 0
+                    Exit Sub
+                Case 1
+                Case Else
+                    MsgBox("E' necessario selezionare il file di backup 'filezilla-client-*' per ripristinare la configurazione di FileZilla FTP Client!", MsgBoxStyle.Exclamation, "AVVISO")
+                    Exit Sub
+            End Select
+            zipfilename = .FileName
+        End With
+
+        Cursor = Cursors.WaitCursor
+        UsefulFunctions.DirectoryBAK(roamingpath)
+        Try
+            ZipFile.ExtractToDirectory(zipfilename, roamingpath)
+        Catch ex As Exception
+            UsefulFunctions.DirectoryRestoreBAK(roamingpath)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "ERRORE")
+            Exit Sub
+        Finally
+            Cursor = Cursors.Default
+        End Try
+
+        UsefulFunctions.DirectoryDelete(roamingpath & ".bak")
+
+        MsgBox("Il backup è stato ripristinato!", MsgBoxStyle.Information, "FILEZILLA FTP CLIENT RESTORE")
+
+    End Sub
 End Class
