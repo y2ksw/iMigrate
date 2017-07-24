@@ -1,4 +1,5 @@
-﻿Imports System.Diagnostics
+﻿Imports Microsoft.Win32
+Imports System.Diagnostics
 Imports System.IO
 
 ''' <summary>
@@ -75,6 +76,58 @@ Module UsefulFunctions
 
         Try
             Directory.Move(lpszPath & ".bak", lpszPath)
+        Catch : End Try
+
+    End Sub
+
+    ''' <summary>
+    ''' Returns a HKEY_CURRENT_USER Registry Value.
+    ''' </summary>
+    ''' <param name="lpszSubKey"></param>
+    ''' <param name="lpszField"></param>
+    ''' <returns></returns>
+    Public Function GetCurrentUserKeyValue(ByVal lpszSubKey As String, ByVal lpszField As String) As String
+
+        Dim Value As String = ""
+
+        Try
+            Using k As RegistryKey = Registry.CurrentUser.OpenSubKey(lpszSubKey)
+                Value = k.GetValue(lpszField).ToString
+            End Using
+        Catch : End Try
+
+        Return Value
+
+    End Function
+
+    ''' <summary>
+    ''' Moves a file to *.bak.
+    ''' </summary>
+    ''' <param name="lpszPath"></param>
+    Public Sub FileBAK(ByVal lpszPath As String)
+
+        FileDelete(lpszPath & ".bak")
+
+        Try
+            File.Move(lpszPath, lpszPath & ".bak")
+        Catch : End Try
+
+    End Sub
+
+    ''' <summary>
+    ''' Restores a *.bak file if present.
+    ''' </summary>
+    ''' <param name="lpszPath"></param>
+    Public Sub FileRestoreBAK(ByVal lpszPath As String)
+
+        If Not File.Exists(lpszPath & ".bak") Then
+            Return
+        End If
+
+        FileDelete(lpszPath)
+
+        Try
+            File.Move(lpszPath & ".bak", lpszPath)
         Catch : End Try
 
     End Sub

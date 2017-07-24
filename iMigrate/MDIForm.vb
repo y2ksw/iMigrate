@@ -1,4 +1,6 @@
-﻿Public Class MDIForm
+﻿Imports System.IO.Compression
+
+Public Class MDIForm
 
     Private Sub MDIForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -563,6 +565,147 @@
         UsefulFunctions.DirectoryDelete(roamingpath & ".bak")
 
         MsgBox("Il backup è stato ripristinato!", MsgBoxStyle.Information, "FILEZILLA FTP CLIENT RESTORE")
+
+    End Sub
+
+    ''' <summary>
+    ''' FileZilla FTP Server Backup.
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub BackupToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles BackupToolStripMenuItem2.Click
+
+        Dim a As String
+        Dim zipfilename As String
+        Dim p As String = Path.GetFullPath($"{Application.LocalUserAppDataPath}\..\..\..\..")
+        Dim username = Split(p, "\")(2)
+        Dim apppath As String = UsefulFunctions.GetCurrentUserKeyValue("Software\FileZilla Server", "Install_Dir")
+        Dim inifilename As String = $"{apppath}\FileZilla Server.xml"
+        Dim tmpfilename As String
+
+        If Not File.Exists(inifilename) Then
+            MsgBox("Non è stato trovato un profilo FileZilla Server valido!", MsgBoxStyle.Critical, "ERRORE")
+            Exit Sub
+        End If
+
+        If UsefulFunctions.ProcessExists("FileZilla Server Interface") Then
+            MsgBox("E' attualmente attivo FileZilla Server Interface! Chiudere l'applicazione e riprovare.", MsgBoxStyle.Exclamation, "AVVISO")
+            Exit Sub
+        End If
+
+        With SaveFileDialog1
+            .AddExtension = True
+            .OverwritePrompt = True
+            .DefaultExt = "gz"
+            a = $"filezilla-server-{username}-{Now.ToString("yyyy-MM-dd-HH-mm-ss")}.gz"
+            a = Replace(a, "\", "_")
+            .FileName = a
+            If .ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
+            zipfilename = .FileName
+        End With
+
+        Cursor = Cursors.WaitCursor
+        tmpfilename = Path.GetTempFileName
+        UsefulFunctions.FileDelete(tmpfilename)
+        Try
+            Using fs As FileStream = New FileStream(tmpfilename, FileMode.Create)
+                Using gz As GZipStream = New GZipStream(fs, CompressionLevel.Optimal)
+                    Using src As FileStream = New FileStream(inifilename, FileMode.Open, FileAccess.Read, FileShare.Read)
+                        src.CopyTo(gz)
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            UsefulFunctions.FileDelete(tmpfilename)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "ERRORE")
+            Exit Sub
+        Finally
+            Cursor = Cursors.Default
+        End Try
+
+        Cursor = Cursors.WaitCursor
+        Try
+            File.Move(tmpfilename, zipfilename)
+        Catch ex As Exception
+            UsefulFunctions.FileDelete(tmpfilename)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "ERRORE")
+            Exit Sub
+        Finally
+            Cursor = Cursors.Default
+        End Try
+
+        MsgBox($"Il backup è stato creato nella cartella '{Path.GetDirectoryName(zipfilename)}'!", MsgBoxStyle.Information, "FILEZILLA SERVER BACKUP")
+
+        Shell("explorer " & """" & Path.GetDirectoryName(zipfilename) & """", AppWinStyle.NormalFocus)
+
+    End Sub
+
+    ''' <summary>
+    ''' FileZilla FTP Server Restore.
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub RestoreToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles RestoreToolStripMenuItem2.Click
+
+        Dim a As String
+        Dim zipfilename As String
+        Dim p As String = Path.GetFullPath($"{Application.LocalUserAppDataPath}\..\..\..\..")
+        Dim username = Split(p, "\")(2)
+        Dim apppath As String = UsefulFunctions.GetCurrentUserKeyValue("Software\FileZilla Server", "Install_Dir")
+        Dim inifilename As String = $"{apppath}\FileZilla Server.xml"
+
+        If Not File.Exists(inifilename) Then
+            MsgBox("Non è stato trovato un profilo FileZilla FTP Client valido!", MsgBoxStyle.Critical, "ERRORE")
+            Exit Sub
+        End If
+
+        If UsefulFunctions.ProcessExists("FileZilla Server Interface") Then
+            MsgBox("E' attualmente attivo FileZilla Server Interface! Chiudere l'applicazione e riprovare.", MsgBoxStyle.Exclamation, "AVVISO")
+            Exit Sub
+        End If
+
+        With OpenFileDialog1
+            .AddExtension = True
+            .CheckFileExists = True
+            .DefaultExt = "gz"
+            .FileName = $"filezilla-server-{username}-*.gz"
+            .Multiselect = True
+            If .ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
+            Select Case .FileNames.Count
+                Case 0
+                    Exit Sub
+                Case 1
+                Case Else
+                    MsgBox("E' necessario selezionare il file di backup 'filezilla-server-*' per ripristinare la configurazione di FileZilla Server!", MsgBoxStyle.Exclamation, "AVVISO")
+                    Exit Sub
+            End Select
+            zipfilename = .FileName
+        End With
+
+        MsgBox($"Perché sia possibile sostituire il file di configurazione, aggiungere l'utente 'Everyone' con 'Controllo completo' al file '{inifilename}'. Dopo la modifica, rimuovere questi diritti!", MsgBoxStyle.Exclamation, "FILEZILLA SERVER RESTORE")
+
+        Cursor = Cursors.WaitCursor
+
+        Try
+            Using src As FileStream = New FileStream(zipfilename, FileMode.Open, FileAccess.Read, FileShare.Read)
+                Using gz As GZipStream = New GZipStream(src, CompressionMode.Decompress)
+                    Using fs As FileStream = File.Create(inifilename)
+                        gz.CopyTo(fs)
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "ERRORE")
+            Exit Sub
+        Finally
+            Cursor = Cursors.Default
+        End Try
+
+        MsgBox("Il backup è stato ripristinato! Perché siano applicate le eventuali modifiche, è necessario riavviare il servizio.", MsgBoxStyle.Information, "FILEZILLA SERVER RESTORE")
 
     End Sub
 End Class

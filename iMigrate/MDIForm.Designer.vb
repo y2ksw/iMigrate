@@ -35,18 +35,18 @@ Partial Class MDIForm
         Me.ThunderbirdToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackupToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.RestoreToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FilezillaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ClientToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BackupToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RestoreToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ServerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BackupToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RestoreToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.AggiornaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContattiToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.FilezillaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ServerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ClientToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BackupToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RestoreToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BackupToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RestoreToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -124,6 +124,51 @@ Partial Class MDIForm
         Me.RestoreToolStripMenuItem1.Size = New System.Drawing.Size(125, 22)
         Me.RestoreToolStripMenuItem1.Text = "&Restore ..."
         '
+        'FilezillaToolStripMenuItem
+        '
+        Me.FilezillaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ClientToolStripMenuItem, Me.ServerToolStripMenuItem})
+        Me.FilezillaToolStripMenuItem.Name = "FilezillaToolStripMenuItem"
+        Me.FilezillaToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.FilezillaToolStripMenuItem.Text = "&Filezilla"
+        '
+        'ClientToolStripMenuItem
+        '
+        Me.ClientToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BackupToolStripMenuItem3, Me.RestoreToolStripMenuItem3})
+        Me.ClientToolStripMenuItem.Name = "ClientToolStripMenuItem"
+        Me.ClientToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ClientToolStripMenuItem.Text = "&Client"
+        '
+        'BackupToolStripMenuItem3
+        '
+        Me.BackupToolStripMenuItem3.Name = "BackupToolStripMenuItem3"
+        Me.BackupToolStripMenuItem3.Size = New System.Drawing.Size(125, 22)
+        Me.BackupToolStripMenuItem3.Text = "&Backup ..."
+        '
+        'RestoreToolStripMenuItem3
+        '
+        Me.RestoreToolStripMenuItem3.Name = "RestoreToolStripMenuItem3"
+        Me.RestoreToolStripMenuItem3.Size = New System.Drawing.Size(125, 22)
+        Me.RestoreToolStripMenuItem3.Text = "&Restore ..."
+        '
+        'ServerToolStripMenuItem
+        '
+        Me.ServerToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BackupToolStripMenuItem2, Me.RestoreToolStripMenuItem2})
+        Me.ServerToolStripMenuItem.Name = "ServerToolStripMenuItem"
+        Me.ServerToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ServerToolStripMenuItem.Text = "&Server"
+        '
+        'BackupToolStripMenuItem2
+        '
+        Me.BackupToolStripMenuItem2.Name = "BackupToolStripMenuItem2"
+        Me.BackupToolStripMenuItem2.Size = New System.Drawing.Size(152, 22)
+        Me.BackupToolStripMenuItem2.Text = "&Backup ..."
+        '
+        'RestoreToolStripMenuItem2
+        '
+        Me.RestoreToolStripMenuItem2.Name = "RestoreToolStripMenuItem2"
+        Me.RestoreToolStripMenuItem2.Size = New System.Drawing.Size(152, 22)
+        Me.RestoreToolStripMenuItem2.Text = "&Restore ..."
+        '
         'AggiornaToolStripMenuItem
         '
         Me.AggiornaToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
@@ -145,51 +190,6 @@ Partial Class MDIForm
         'Timer1
         '
         Me.Timer1.Interval = 1000
-        '
-        'FilezillaToolStripMenuItem
-        '
-        Me.FilezillaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ClientToolStripMenuItem, Me.ServerToolStripMenuItem})
-        Me.FilezillaToolStripMenuItem.Name = "FilezillaToolStripMenuItem"
-        Me.FilezillaToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.FilezillaToolStripMenuItem.Text = "&Filezilla"
-        '
-        'ServerToolStripMenuItem
-        '
-        Me.ServerToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BackupToolStripMenuItem2, Me.RestoreToolStripMenuItem2})
-        Me.ServerToolStripMenuItem.Name = "ServerToolStripMenuItem"
-        Me.ServerToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.ServerToolStripMenuItem.Text = "&Server"
-        '
-        'ClientToolStripMenuItem
-        '
-        Me.ClientToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BackupToolStripMenuItem3, Me.RestoreToolStripMenuItem3})
-        Me.ClientToolStripMenuItem.Name = "ClientToolStripMenuItem"
-        Me.ClientToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.ClientToolStripMenuItem.Text = "&Client"
-        '
-        'BackupToolStripMenuItem2
-        '
-        Me.BackupToolStripMenuItem2.Name = "BackupToolStripMenuItem2"
-        Me.BackupToolStripMenuItem2.Size = New System.Drawing.Size(152, 22)
-        Me.BackupToolStripMenuItem2.Text = "&Backup ..."
-        '
-        'RestoreToolStripMenuItem2
-        '
-        Me.RestoreToolStripMenuItem2.Name = "RestoreToolStripMenuItem2"
-        Me.RestoreToolStripMenuItem2.Size = New System.Drawing.Size(152, 22)
-        Me.RestoreToolStripMenuItem2.Text = "&Restore ..."
-        '
-        'BackupToolStripMenuItem3
-        '
-        Me.BackupToolStripMenuItem3.Name = "BackupToolStripMenuItem3"
-        Me.BackupToolStripMenuItem3.Size = New System.Drawing.Size(152, 22)
-        Me.BackupToolStripMenuItem3.Text = "&Backup ..."
-        '
-        'RestoreToolStripMenuItem3
-        '
-        Me.RestoreToolStripMenuItem3.Name = "RestoreToolStripMenuItem3"
-        Me.RestoreToolStripMenuItem3.Size = New System.Drawing.Size(152, 22)
-        Me.RestoreToolStripMenuItem3.Text = "&Restore ..."
         '
         'MDIForm
         '
