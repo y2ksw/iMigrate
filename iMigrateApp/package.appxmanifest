@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" IgnorableNamespaces="uap rescap mp">
+  <Identity Name="3359TrimelliEditori.iMigrate" Version="1.5.1.0" Publisher="CN=510957BE-09CB-44FD-9C71-78F211A9F46D" />
+  <mp:PhoneIdentity PhoneProductId="df826af2-b034-4d65-85f0-0bfc238f1294" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Properties>
+    <DisplayName>iMigrate</DisplayName>
+    <PublisherDisplayName>Trimelli Editori</PublisherDisplayName>
+    <Logo>images\storelogo.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="it-it" />
+  </Resources>
+  <Applications>
+    <Application Id="iMigrate" EntryPoint="Windows.FullTrustApplication" Executable="app\iMigrate.exe">
+      <uap:VisualElements DisplayName="iMigrate" Description="Applicazione per migrare tutte le impostazioni e contenuti di Mozilla Firefox, Mozilla Thunderbird, Filezilla FTP Client e Server da un computer all'altro, o per fare semplicemente un backup." BackgroundColor="transparent" Square150x150Logo="images\Square150x150Logo.png" Square44x44Logo="images\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="images\Wide310x150Logo.png" Square310x310Logo="images\LargeTile.png" Square71x71Logo="images\SmallTile.png">
+        </uap:DefaultTile>
+        <uap:SplashScreen Image="images\splashscreen.png" />
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+</Package>
