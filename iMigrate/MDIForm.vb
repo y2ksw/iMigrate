@@ -649,7 +649,6 @@ Public Class MDIForm
     ''' <param name="e"></param>
     Private Sub RestoreToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles RestoreToolStripMenuItem2.Click
 
-        Dim a As String
         Dim zipfilename As String
         Dim p As String = Path.GetFullPath($"{Application.LocalUserAppDataPath}\..\..\..\..")
         Dim username = Split(p, "\")(2)
