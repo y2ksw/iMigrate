@@ -111,7 +111,6 @@
     <Compile Include="Contacts.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="INIFile.vb" />
     <Compile Include="MDIForm.Designer.vb">
       <DependentUpon>MDIForm.vb</DependentUpon>

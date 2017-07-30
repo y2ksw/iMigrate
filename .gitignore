@@ -6,7 +6,8 @@
 *.user
 *.userosscache
 *.sln.docstates
-app/
+iMigrateApp/
+iMigrateApp.1/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
